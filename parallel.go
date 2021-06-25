@@ -4,6 +4,9 @@ import (
 	"sync"
 )
 
+// Parallel Паралельно выполнит все функции fns
+// Время работы функции Parallel примерно равно времени работы самой долгой из переданных в Parallel фунций
+// Для досрочного выхода, закрыть канал cancel
 func Parallel(cancel <-chan struct{}, fns ...func()) {
 	doneCh := make(chan struct{})
 
