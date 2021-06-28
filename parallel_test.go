@@ -36,7 +36,7 @@ func TestParallel(t *testing.T) {
 		elapsed := time.Since(start)
 
 		require.Less(t, elapsed, sumSleep)
-		require.Equal(t, int32(15), res)
+		require.Equal(t, int32(15), atomic.LoadInt32(&res))
 	})
 
 	t.Run("the parallel function must be completed earlier than the longest function from the array and not all functions from the array should have time to be executed", func(t *testing.T) {
@@ -54,6 +54,6 @@ func TestParallel(t *testing.T) {
 		elapsed := time.Since(start)
 
 		require.Less(t, elapsed, maxSleep)
-		require.Less(t, res, int32(15))
+		require.Less(t, atomic.LoadInt32(&res), int32(15))
 	})
 }
